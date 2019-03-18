@@ -1,0 +1,44 @@
+<h1>Articles</h1>
+
+<?php if(isset($_SESSION['flashbag'])):?>
+  <?php foreach($_SESSION['flashbag'] as $bag): ?>
+    <div class="col-3 alert alert-danger">
+      <strong><?=$bag?></strong>
+    </div>
+  <?php endforeach ; ?>
+<?php endif; ?>
+
+<a href="articleForm.php">Ajouter <i class="fa fa-plus"></i></a>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Img</th>
+      <th scope="col">Action</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Posté par</th>
+      <th scope="col">Catégorie</th>
+      <th scope="col">Date</th>
+      <!--<th scope="col">Commentaires</th>-->
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($articles as $article): ?>
+      <tr>
+        <td>
+          <img class='w-100' src='<?= isset($article['picture'])? UPLOADS_URL.'articles/'.$article['picture']:'' ?>' alt=''>
+        </td>
+        <td>
+          <a href='articleDelete.php?id=<?=$article['id']?>'><i class="fa fa-trash-alt"></i>
+          <a href='articleForm.php?id=<?=$article['id']?>'><i class="fa fa-pencil-alt"></i></a> 
+        </td>
+        <td><?=$article['title']?></td>
+        <td><?=$article['author']?></td>
+        <td><?=$article['category']?></td>
+        <td><?=$article['date']?></td>
+        <!--<td><?=$article['comments']?></td>-->
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
+<a href="articleForm.php">Ajouter <span class="fa fa-plus"></span></a>

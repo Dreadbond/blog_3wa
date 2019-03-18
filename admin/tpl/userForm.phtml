@@ -1,0 +1,41 @@
+<h1><?=$title?></h1>
+<!--$keys = ['id', 'firstname', 'lastname', 'email', 'role', 'valide'];-->
+
+<form action='userApply.php' method='POST'>
+    <input class="d-none" 
+        type="text" 
+        name="id"
+        placeholder="ID" 
+        value='<?=$user['id']?>'/>
+
+    <div class="form-group row">
+        <p class="col-sm-2 col-form-label">Prénom/pseudo</p>
+        <input class="form-control col-sm-10" type="text" name="firstname" placeholder="Prénom/pseudo" value='<?=$user['firstname']?>' required/>
+    </div>
+
+    <div class="form-group row">
+        <p class="col-sm-2 col-form-label">Nom</p>
+        <input class="form-control col-sm-10" type="text" name="lastname" placeholder="Nom" value='<?=$user['lastname']?>'/>
+    </div>
+
+    <div class="form-group row">
+        <p class="col-sm-2 col-form-label">Email</p>
+        <input class="form-control col-sm-10" type="email" name="email" placeholder="Email" value='<?=$user['email']?>'/>
+    </div>
+
+    <div class="form-group row">
+        <p class="col-sm-2 col-form-label">Mot de passe</p>
+        <input class="form-control col-sm-10" type="password" name="password"/>
+    </div>
+
+    <div class="form-group row">
+        <p class="col-sm-2 col-form-label">Catégorie</p>
+        <select class="col-sm-10 custom-select" name="role" required>
+            <option value='AUTHOR' <?= $user['role'] == 'AUTHOR'?'selected':null?> >Auteur</option>
+            <option value='ADMIN'  <?= $user['role'] == 'ADMIN'?'selected':null?> >Admin</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary"><?=$action?></button>
+</form>
+

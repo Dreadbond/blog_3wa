@@ -1,0 +1,9 @@
+<h1>Suppression</h1>
+
+<p>
+    Êtes-vous sûr de vouloir supprimer l'article "<?=$article['title']?>" ?
+</p>
+    <form action="articleApply.php" method="POST">
+        <button value='<?=$article['id']?>' name="delete" type="submit" class="btn btn-danger">Oui</button>
+        <a class="btn btn-primary" href="articles.php">Non</a>
+    </form>

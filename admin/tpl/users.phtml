@@ -1,0 +1,39 @@
+<h1>Utilisateurs</h1>
+<?php if(isset($_SESSION['flashbag'])):?>
+  <?php foreach($_SESSION['flashbag'] as $bag): ?>
+    <div class="col-3 alert alert-danger">
+      <strong><?=$bag?></strong>
+    </div>
+  <?php endforeach ; ?>
+<?php endif; ?>
+
+<a href="userForm.php">Ajouter <i class="fa fa-plus"></i></a>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Action</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+      <th scope="col">Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($users as $user): ?>
+      <tr>
+        <td>
+          <a href='userDelete.php?id=<?=$user['id']?>'><i class="fa fa-trash-alt"></i>
+          <a href='userForm.php?id=<?=$user['id']?>'><i class="fa fa-pencil-alt"></i></a> 
+        </td>
+        <td><?=$user['firstname']?></td>
+        <td><?=$user['lastname']?></td>
+        <td><?=$user['email']?></td>
+        <td><?=$user['role']?></td>
+        <td><p class="badge badge-pill badge-primary"><?=$user['posts']?></p></td> 
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
+<a href="userForm.php">Ajouter <i class="fa fa-plus"></i></a>

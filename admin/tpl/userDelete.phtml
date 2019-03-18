@@ -1,0 +1,9 @@
+<h1>Suppression</h1>
+
+<p>
+    Êtes-vous sûr de vouloir supprimer l'utilisateur "<?=$user['firstname']?>" ?
+</p>
+    <form action="userApply.php" method="POST">
+        <button value='<?=$user['id']?>' name="delete" type="submit" class="btn btn-danger">Oui</button>
+        <a class="btn btn-primary" href="users.php">Non</a>
+    </form>

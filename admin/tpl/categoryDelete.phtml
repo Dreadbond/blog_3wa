@@ -1,0 +1,14 @@
+<h1>Suppression</h1>
+
+<p>
+    Êtes-vous sûr de vouloir supprimer la catégorie "<?=$category['title']?>" ?
+</p>
+    <form action="categoryApply.php" method="POST">
+        <button 
+            value='<?=$category['id']?>' 
+            name="delete" 
+            type="submit" 
+            class="btn btn-danger">
+        Oui</button>
+        <a class="btn btn-primary" href="categories.php">Non</a>
+    </form>

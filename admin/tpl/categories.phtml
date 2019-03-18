@@ -1,0 +1,39 @@
+<h1>Catégories</h1>
+
+<?php if(isset($_SESSION['flashbag'])):?>
+  <?php foreach($_SESSION['flashbag'] as $bag): ?>
+    <div class="col-3 alert alert-danger">
+      <strong><?=$bag?></strong>
+    </div>
+  <?php endforeach ; ?>
+<?php endif; ?>
+
+<a href="categoryForm.php">Ajouter <i class="fa fa-plus"></i></a>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Action</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Parent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($categories as $category): ?>
+      <tr>
+        <td>
+          <a href='categoryDelete.php?id=<?=$category['id']?>'><i class="fa fa-trash-alt"></i>
+          <a href='categoryForm.php?id=<?=$category['id']?>'><i class="fa fa-pencil-alt"></i></a> 
+        </td>
+        <td><?=$category['title']?></td>
+        <td><?= $category['parent'] ? fetch('category', $category['parent'])['title'] : null?></td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+  
+  
+  
+  
+  
+</table>
+
+<a href="categoryForm.php">Ajouter <i class="fa fa-plus"></i></a>

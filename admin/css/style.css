@@ -1,0 +1,8 @@
+.bg-secondary{
+    background: #fcfcfc !important;
+}
+
+td{
+    max-width: 200px;
+    overflow: hidden;
+}
