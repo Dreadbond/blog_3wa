@@ -76,14 +76,22 @@ function fetch($query, $id){
                 WHERE c_id = :id
                 ';
         break ;
-
+        
         case 'user':
-            $sqlQuery = 
-                'SELECT u_id as id, u_firstname as firstname, u_lastname as lastname, u_password as password, u_email as email, u_role as role
+            $sqlQuery = '
+                SELECT u_id as id, u_firstname as firstname, u_lastname as lastname, u_password as password, u_email as email, u_role as role, COUNT(a.a_author) as posts
                 FROM b_user u
+                LEFT JOIN b_article a ON a_author = u.u_id
                 WHERE u_id = :id
-                ';
+                GROUP BY a.a_author, id';
         break ;
+        // case 'user':
+        //     $sqlQuery = 
+        //         'SELECT u_id as id, u_firstname as firstname, u_lastname as lastname, u_password as password, u_email as email, u_role as role
+        //         FROM b_user u
+        //         WHERE u_id = :id
+        //         ';
+        // break ;
     }
 
     try{
@@ -92,7 +100,7 @@ function fetch($query, $id){
         $sth = $dbh->prepare($sqlQuery);
         $sth->bindValue('id',$id,PDO::PARAM_INT);
         $sth->execute();
-        $result = $sth->fetchAll(PDO::FETCH_BOTH);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
     }
     catch(PDOException $e){
         echo 'Une erreur s\'est produite : '.$e->getMessage();
@@ -259,8 +267,6 @@ function deleteDB($table, $id){
  * @param [] tableau username et password hashé
  */
 function checkUser($email, $password){
-    // $result ;
-    // $sqlQuery;
     try{
         $dbh = new PDO(DB_SGBD.':host='.DB_SGBD_URL.';dbname='.DB_DATABASE.';charset='.DB_CHARSET, DB_USER, DB_PASSWORD);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -274,9 +280,9 @@ function checkUser($email, $password){
         $sth->bindValue('email', $email,PDO::PARAM_STR);
         $sth->bindValue('password', $password,PDO::PARAM_STR);
         $sth->execute();
-        $result = $sth->fetchAll(PDO::FETCH_BOTH);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-        if (sizeof($result[0]['id'])) $result = $result[0]['id'] ;
+        if (sizeof($result[0])) $result = $result[0]['id'] ;
         else $result = false ;
     }
     catch(PDOException $e){
@@ -293,10 +299,7 @@ function checkConnection(){
     session_start() ;
 
     if (!array_key_exists('connect', $_SESSION) || !$_SESSION['connect']){
-        // $view = 'login' ;
-        // '../tpl/layout.phtml' ;
         header('location:index.php'); 
-        // exit();
     }
 }
 

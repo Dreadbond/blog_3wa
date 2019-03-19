@@ -36,6 +36,12 @@
             </li>
           </ul>
         </div>
+        <div>
+          <p class='text-white'><?=$_SESSION['user']['firstname']?> <?=$_SESSION['user']['lastname']?></p>
+          <form action='disconnect.php' method="POST">
+            <input type='submit' class='' value='Se déconnecter'></input>
+          </form>
+        </div>
       </nav>
     </header>
     <main>

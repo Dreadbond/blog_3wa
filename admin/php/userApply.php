@@ -10,7 +10,7 @@ if(array_key_exists('firstname', $_POST)){
     $user = $_POST ;
     
     /************************** Prénom/pseudo *************************************/
-    if(!isset($user['firstname'])) $error = 'Vous devez au moins saisir un pseudo' ;
+    if(!isset($user['firstname'])) array_push($error, 'Vous devez au moins saisir un pseudo') ;
     
     /************************** Nom *************************************/
     
@@ -35,7 +35,13 @@ if(array_key_exists('firstname', $_POST)){
     }
 }
 else if (array_key_exists('delete', $_POST)){
-    deleteDB('user', $_POST['delete']);
+    $postsNumber = fetch('user', $_POST['delete'])['posts'];
+    if($postsNumber == 0){
+        deleteDB('user', $_POST['delete']);
+    }
+    else{
+        array_push($error, 'Vous ne pouvez pas supprimer un utilisateur ayant encore des articles.');
+    }
 }
 
 $_SESSION['flashbag'] = $error ;
